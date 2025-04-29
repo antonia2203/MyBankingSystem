@@ -2,6 +2,7 @@ package com.antonia.bank_app.controller;
 
 import com.antonia.bank_app.service.BankService;
 import entity.Account;
+import entity.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -57,9 +58,15 @@ public class BankController {
 
 
     //View transactions history
-    public String viewTransactions(@PathVariable("id") Long accountId, String type, LocalDateTime startDate,
-                                   LocalDateTime endDate) {
+    public String viewTransactions(@PathVariable("id") Long accountId, @RequestParam String type, @RequestParam LocalDateTime startDate,
+                                   @RequestParam LocalDateTime endDate,
+                                   Model model) {
+        List<Transaction> transactions = bankService
+                .getTransactionHistory(accountId, type , startDate, endDate);
+        model.addAttribute("transactions" , transactions );
+        model.addAttribute("accountId", accountId);
 
+        return "Transactions";
     }
 
 
