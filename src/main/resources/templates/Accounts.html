@@ -5,19 +5,40 @@
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap/min.css">
     </head>
     <body>
-        <h1>All Accounts</h1>
+        <div class="container mt-5">
+            <h1>All Accounts</h1>
 
-    <button class="btn btn-primary mb-3" data-toggle="model" data-target="#addAccountModel">Add new Accounts</button>
+            <button class="btn btn-primary mb-3" data-toggle="model" data-target="#addAccountModel">Add new Accounts</button>
 
-    <table class="tabble mt-3">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Holder Name</th>
-                <th>Balance</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-    </table>
+            <table class="tabble mt-3">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Holder Name</th>
+                        <th>Balance</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="account : ${accountList}">
+                        <td thLtext="${account.id}"></td>
+                        <td thLtext="${account.holderName}"></td>
+                        <td thLtext="${account.balance}"></td>
+                        <td>
+                            <a th:href="@{/{id}/transactions(id=${account.id})}" class="btn btn-info">View all transactions</a>
+                            <button class="btn btn-succes" data-toggle="model" data-target="#depositModel"
+                                    th:data-id="${account.id}">Deposit money</button>
+                            <button class="btn btn-warning" data-toggle="model" data-target="#withdrawModel"
+                                    th:data-id="${account.id}">Deposit money</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="model fade" id="addAccountModel" tabindex="-1" role="dialog" aria-labelledby="depositModelLabel"
+             aria-hidden="true">
+
+        </div>
     </body>
 </html>

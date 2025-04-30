@@ -58,8 +58,9 @@ public class BankController {
 
 
     //View transactions history
-    public String viewTransactions(@PathVariable("id") Long accountId, @RequestParam String type, @RequestParam LocalDateTime startDate,
-                                   @RequestParam LocalDateTime endDate,
+    @GetMapping("/{id}/transactions")
+    public String viewTransactions(@PathVariable("id") Long accountId, @RequestParam(required = false) String type, @RequestParam(required = false) LocalDateTime startDate,
+                                   @RequestParam(required = false) LocalDateTime endDate,
                                    Model model) {
         List<Transaction> transactions = bankService
                 .getTransactionHistory(accountId, type , startDate, endDate);
